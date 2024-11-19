@@ -1,0 +1,16 @@
+<h1>Деталі студента: {{ student.first_name }}</h1>
+
+<h2>Додати оцінку:</h2>
+
+<form method="POST" action="{% url 'student-detail' student.pk  %}">
+    {% csrf_token %}
+    {{ grade_form.as_p }}
+    <button type="submit">Зберегти</button>
+</form>
+
+<h2>Існуючі оцінки:</h2>
+<ul>
+    {% for grade in student.student_profile.grades.all %}
+        <li>{{ grade.grade }} (Вчитель: {{ grade.teacher.user.first_name }}) Поставленя: {{ grade.created_at }}</li>
+    {% endfor %}
+</ul>
