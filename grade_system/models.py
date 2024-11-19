@@ -35,6 +35,7 @@ class Grade(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='grades')
     teacher = models.ForeignKey(Teacher,on_delete=models.DO_NOTHING,related_name='grades')
     grade = models.CharField(max_length=20,choices=TYPE_GRADE)
+    created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f"Grade: {self.grade} for {self.student.user.username} by {self.teacher.user.username}"

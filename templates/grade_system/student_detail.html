@@ -11,6 +11,6 @@
 <h2>Існуючі оцінки:</h2>
 <ul>
     {% for grade in student.student_profile.grades.all %}
-        <li>{{ grade.grade }} (Вчитель: {{ grade.teacher.user.first_name }})</li>
+        <li>{{ grade.grade }} (Вчитель: {{ grade.teacher.user.first_name }}) Поставленя: {{ grade.created_at }}</li>
     {% endfor %}
 </ul>
