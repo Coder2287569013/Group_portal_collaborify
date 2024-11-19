@@ -2,22 +2,24 @@ from django.contrib.auth.base_user import BaseUserManager
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, email, password, **o_fields):
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
-            raise ValueError("Email problem")
+            raise ValueError("The Email field must be set")
+            
         email = self.normalize_email(email)
-        user = self.model(email=email, **o_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.save()
+        user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, password, **o_fields):
-        o_fields.setdefault("is_staff", True)
-        o_fields.setdefault("is_superuser", True)
-        o_fields.setdefault("is_active", True)
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
-        if o_fields.get("is_staff") is not True or o_fields.get("is_superuser") is not True:
-            raise ValueError("Missing role")
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(email, password, **o_fields)
+        return self.create_user(email, password, **extra_fields)
