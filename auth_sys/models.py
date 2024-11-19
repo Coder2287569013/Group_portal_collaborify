@@ -4,6 +4,12 @@ from .managers import CustomUserManager
 
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+
+    ROLE = [
+        ('student','student'),
+        ('teacher','teacher')
+    ]
+
     username = None
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -12,6 +18,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    role = models.CharField(max_length=10, choices=ROLE, default='student')
         
     USERNAME_FIELD = "email"
 
