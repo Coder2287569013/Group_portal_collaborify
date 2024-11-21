@@ -1,0 +1,9 @@
+<h1>Новости от {{ author.name }}</h1>
+<ul>
+  {% for item in news %}
+    <li>
+      <a href="{% url 'news_detail' news_id=item.id %}">{{ item.title }}</a>
+      <p>Дата: {{ item.created_at|date:"d.m.Y" }}</p>
+    </li>
+  {% endfor %}
+</ul>
