@@ -11,13 +11,14 @@ class RegisterView(CreateView): # - RegisterView for registering new users
     model = CustomUser
     template_name = 'auth_sys/register_form.html'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('/')
+    success_url = reverse_lazy('main')
 
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
 
-        return redirect('/')
+        return redirect('main')
 
 class CustomLoginView(LoginView):
     template_name = 'auth_sys/login.html'
+    success_url = reverse_lazy('main')
