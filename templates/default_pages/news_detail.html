@@ -1,0 +1,7 @@
+<h1>{{ news_item.title }}</h1>
+<p><strong>Автор:</strong> {{ news_item.author.first_name }} {{ news_item.author.last_name }}</p>
+<p><strong>Дата:</strong> {{ news_item.created_at|date:"d.m.Y H:i" }}</p>
+<p>{{ news_item.content }}</p>
+{% if news_item.editor %}
+  <p><strong>Редактор:</strong> {{ news_item.editor.first_name }} {{ news_item.editor.last_name }}</p>
+{% endif %}
