@@ -21,6 +21,11 @@ class StudentDetailView(DetailView):
     def get_queryset(self):
         return CustomUser.objects.filter(role='student')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['grade_form'] = GradeForm()
+        return context
+    
     def post(self, request, *args, **kwargs):
         student = self.get_object()
         grade_form = GradeForm(request.POST)

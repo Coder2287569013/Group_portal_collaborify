@@ -4,7 +4,7 @@
 
 <form method="POST" action="{% url 'student-detail' student.pk  %}">
     {% csrf_token %}
-    {{ grade_form.as_p }}
+    <p>{{ grade_form.as_p }}</p>
     <button type="submit">Зберегти</button>
 </form>
 
