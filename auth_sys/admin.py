@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, Role, UserProfile
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 class CustomUserAdmin(UserAdmin):
@@ -26,3 +26,5 @@ class CustomUserAdmin(UserAdmin):
     exclude = ('date_joined',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Role)
+admin.site.register(UserProfile)
