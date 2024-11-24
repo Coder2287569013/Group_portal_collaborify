@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 from default_pages.forms import NewsForm
-from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
 from default_pages.models import News
 
 # Create your views here.
@@ -23,13 +28,29 @@ class NewsDetailView(DetailView):
 
     def get_queryset(self):
         return News.objects
+    
+class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = News
+    form_class = NewsForm
+    template_name = 'default_pages/add_news.html'
+    permission_required = 'default_pages.can_post_news'
+    success_url = reverse_lazy('news-list')
 
-def add_news(request):
-    if request.method == 'POST':
-        form = NewsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('news-list')
-    else:
-        form = NewsForm()
-    return render(request, 'default_pages/add_news.html', {'form': form})
+    # def dispatch(self, request, *args, **kwargs):
+    #     if not request.user.has_perm('default_pages.can_post_news'):
+    #         raise PermissionDenied("You do not have permission to post news.")
+    #     return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+# def add_news(request):
+#     if request.method == 'POST':
+#         form = NewsForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('news-list')
+#     else:
+#         form = NewsForm()
+#     return render(request, 'default_pages/add_news.html', {'form': form})

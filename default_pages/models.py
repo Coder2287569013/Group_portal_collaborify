@@ -19,6 +19,9 @@ class News(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        permissions = [('can_post_news', 'Can post news')]
 
     def __str__(self):
         return self.title
