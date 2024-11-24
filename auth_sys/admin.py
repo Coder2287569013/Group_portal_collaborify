@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Role, UserProfile
+from .models import CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 class CustomUserAdmin(UserAdmin):
@@ -8,7 +8,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ["email", "first_name", "last_name", "role", "is_staff"]
+    list_display = ["email", "first_name", "last_name", "is_staff"]
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -19,12 +19,10 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             "classes": ("wide",),
-            "fields": ("email", "first_name", "last_name", "role", "password1", "password2", "is_staff", "is_superuser"),
+            "fields": ("email", "first_name", "last_name", "role", "password1", "password2", "is_staff", "is_superuser", "groups"),
         }),
     )
 
     exclude = ('date_joined',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Role)
-admin.site.register(UserProfile)
