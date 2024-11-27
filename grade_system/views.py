@@ -10,7 +10,9 @@ class StudentListView(ListView):
     context_object_name = 'students'
 
     def get_queryset(self):
-        return CustomUser.objects.filter(role='student')
+        students = CustomUser.objects.filter(role__name='Student')
+        print(students.query)  # To see the SQL query generated
+        return students
 
 
 class StudentDetailView(DetailView):
@@ -19,7 +21,7 @@ class StudentDetailView(DetailView):
     template_name = 'grade_system/student_detail.html'  
 
     def get_queryset(self):
-        return CustomUser.objects.filter(role='student')
+        return CustomUser.objects.filter(role__name='Student')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

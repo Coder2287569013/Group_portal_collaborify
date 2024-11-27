@@ -6,7 +6,7 @@ from .models import Student, Teacher
 @receiver(post_save, sender=CustomUser)
 def create_related_profile(sender, instance, created, **kwargs):
     if created:  # Виконується тільки при створенні нового користувача
-        if instance.role == 'student':
+        if instance.role__name == 'Student':
             Student.objects.create(user=instance)
-        elif instance.role == 'teacher':
+        elif instance.role__name == 'Adminstrator':
             Teacher.objects.create(user=instance)
