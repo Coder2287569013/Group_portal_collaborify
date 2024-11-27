@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'grade_system',
     'default_pages',
+    'portfolio',
 ]
 
 MIDDLEWARE = [
