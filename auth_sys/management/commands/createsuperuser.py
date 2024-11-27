@@ -1,7 +1,7 @@
 from django.contrib.auth.management.commands.createsuperuser import Command as BaseCommand
 from django.core.management import CommandError
+from django.contrib.auth.models import Group
 from auth_sys.models import CustomUser
-
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -11,26 +11,29 @@ class Command(BaseCommand):
         parser.add_argument("--role", required=False, help="Role of the user")
 
     def handle(self, *args, **options):
-        email = options.get('email') 
+        email = options.get('email')
         if not email:
-            email = input('Email: ').strip()  
-        
-        password = options.get('password')  
+            email = input('Email: ').strip()
+
+        password = options.get('password')
         if not password:
-            password = input('Password: ')  
+            password = input('Password: ')
 
         first_name = options.get('first_name') or input('First name: ').strip()
         last_name = options.get('last_name') or input('Last name: ').strip()
-        role = options.get('role') or input('Role: ').strip()
+        role_name = options.get('role') or input('Role: ').strip()
 
         try:
+            group, created = Group.objects.get_or_create(name=role_name)
+            
             user = CustomUser.objects.create_superuser(
                 email=email,
                 password=password,
                 first_name=first_name,
                 last_name=last_name,
-                role=role
+                role=group  
             )
+
         except Exception as e:
             raise CommandError(f"Error creating superuser: {str(e)}")
 

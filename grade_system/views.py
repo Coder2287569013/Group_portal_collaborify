@@ -11,7 +11,6 @@ class StudentListView(ListView):
 
     def get_queryset(self):
         students = CustomUser.objects.filter(role__name='Student')
-        print(students.query)  # To see the SQL query generated
         return students
 
 

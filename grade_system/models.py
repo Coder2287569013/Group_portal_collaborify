@@ -11,7 +11,7 @@ class Teacher(models.Model):
     )
 
     def __str__(self):
-        return f"Teacher: {self.user.username}"
+        return f"Teacher: {self.user.first_name}"
 
 
 class Student(models.Model):
@@ -23,7 +23,7 @@ class Student(models.Model):
     )
 
     def __str__(self):
-        return f"Student: {self.user.username}"
+        return f"Student: {self.user.first_name}"
 
 
 class Grade(models.Model):
@@ -38,4 +38,4 @@ class Grade(models.Model):
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"Grade: {self.grade} for {self.student.user.username} by {self.teacher.user.username}"
+        return f"Grade: {self.grade} for {self.student.user.first_name} by {self.teacher.user.first_name}"
