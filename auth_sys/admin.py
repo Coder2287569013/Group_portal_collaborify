@@ -8,7 +8,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ["email", "first_name", "last_name", "is_staff"]
+    list_display = ["email", "first_name", "last_name", "is_staff", "role"]
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -22,7 +22,7 @@ class CustomUserAdmin(UserAdmin):
             "fields": ("email", "first_name", "last_name", "role", "password1", "password2", "is_staff", "is_superuser", "groups"),
         }),
     )
-
     exclude = ('date_joined',)
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
