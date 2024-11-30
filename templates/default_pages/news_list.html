@@ -1,9 +1,18 @@
-<h1>Список новостей</h1>
-<ul>
-  {% for item in news %}
-    <li>
-      <a href="{% url 'news-detail' pk=item.id %}">{{ item.title }}</a>
-      <p>Дата: {{ item.created_at|date:"d.m.Y" }}</p>
-    </li>
-  {% endfor %}
-</ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Collaborify: Новини</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Список новостей</h1>
+  <ul>
+    {% for item in news %}
+      <li>
+        <a href="{% url 'news-detail' pk=item.id %}">{{ item.title }}</a>
+        <p>Дата: {{ item.created_at|date:"d.m.Y" }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

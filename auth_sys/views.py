@@ -21,4 +21,4 @@ class RegisterView(CreateView): # - RegisterView for registering new users
 
 class CustomLoginView(LoginView):
     template_name = 'auth_sys/login.html'
-    success_url = reverse_lazy('main')
+    redirect_authenticated_user = True

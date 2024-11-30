@@ -6,7 +6,6 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from default_pages.forms import NewsForm
-from django.core.exceptions import PermissionDenied
 from default_pages.models import News
 
 # Create your views here.
@@ -35,11 +34,6 @@ class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'default_pages/add_news.html'
     permission_required = 'default_pages.can_post_news'
     success_url = reverse_lazy('news-list')
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     if not request.user.has_perm('default_pages.can_post_news'):
-    #         raise PermissionDenied("You do not have permission to post news.")
-    #     return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.author = self.request.user
