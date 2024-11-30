@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Collaborify: Форум деталі</title>
+{% endblock %}
+
+{% load custom_tags %}
+
+{% block content %}
+<div class="bec">
+    <h4>{{ post.title }}</h4>
+    <p>{{ post.description }}</p>
+    <a>{{ post.creater }}</a><br>
+    <a>{{ post.created_at }}</a>
+    
+    {% if post.media %}
+    {% if post.media.url|endswith:".jpg" or post.media.url|endswith:".png" or post.media.url|endswith:".jpeg" %}
+    <img src="{{ post.media.url }}" width="30%" height="30%"  alt="img">
+    {% elif post.media.url|endswith:".mp4" %}
+    <video width="50%" height="50%" controls>
+        <source src="{{ post.media.url }}" type="video/mp4" >
+    </video>
+    {% else %}
+    <a href="{{ post.media.url }}">Завантажити</a>
+    {% endif %}
+    {% endif %}
+
+
+    <form method="post" action="{% url 'comment-toggle-like' post.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm {% if request.user in comment.likes.all %}btn-success{% else %}btn-outline-success{% endif %}">
+            Like {{ post.likes.count }}
+        </button> 
+    </form>
+    <form method="post" action="{% url 'comment-toggle-dislike' post.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm {% if request.user in comment.likes.all %}btn-danger{% else %}btn-outline-danger{% endif %}">
+            Dislike {{ post.dislikes.count }}
+        </button> 
+    </form>
+
+    {% if request.user.is_staff%}
+    <form method="post" action="{% url 'post-close' post.id %}">
+        {% csrf_token %}
+        <button type="submit">
+            Close
+        </button>
+    </form>
+    
+    <form method="post" action="{% url 'post-open' post.id %}">
+        {% csrf_token %}
+        <button type="submit">
+            Open
+        </button>
+    </form>
+    {% endif %}
+
+
+
+    <a href="{% url 'post-list' %}">List</a><br>
+    <a href="{% url 'post-delite' post.id %}">Delete</a><br>
+    <a href="{% url 'post-update' post.id %}">Update</a>
+</div>
+
+<h3>Comments</h3>
+<div class="test1">
+<form action="{% url 'post-detail' post.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ coment_form.as_p}}
+    
+    <button type="submit">Submit</button>
+    
+</form>
+<hr>
+
+{% for comment in post.comments.all %}
+    
+    <h6>{{ comment.author }}</h6>
+    <p>{{ comment.content }}</p>
+    <p>{{ comment.created_at }}</p>
+    {% if comment.media %}
+    {% if comment.media.url|endswith:".jpg" or comment.media.url|endswith:".png" or comment.media.url|endswith:".jpeg" %}
+    <img src="{{ comment.media.url }}" width="30%" height="30%"  alt="img">
+    {% elif comment.media.url|endswith:".mp4" %}
+    <video width="50%" height="50%" controls>
+        <source src="{{ comment.media.url }}" type="video/mp4" >
+    </video>
+    {% else %}
+    <a href="{{ comment.media.url }}">Завантажити</a>
+    {% endif %}
+    {% endif %}
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}
