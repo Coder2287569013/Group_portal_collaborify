@@ -1,6 +1,15 @@
-<h1>Додати новость</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Зберегти</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Collaborify: Додавання новин</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Додати новость</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зберегти</button>
+  </form>
+{% endblock %}

@@ -1,10 +1,19 @@
-<h1>Список студентів</h1>
-<ul>
-    {% for student in students %}
-        <li>
-            <a href="{% url 'student-detail' student.pk %}">
-                {{ student.first_name }}1
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Collaborify: Студенти</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Список студентів</h1>
+    <ul>
+        {% for student in students %}
+            <li>
+                <a href="{% url 'student-detail' student.pk %}">
+                    {{ student.first_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
