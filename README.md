@@ -17,7 +17,7 @@
 - Rostislav Kostash
 - Aleksey Kalion
 - Vladislav Zaharov
-- Mikhail Pankov
+- Mykhailo Pankov
 - Artem Kucheryaviy
 
 ---
