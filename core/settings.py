@@ -136,3 +136,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'auth_sys.CustomUser'
 
 LOGIN_REDIRECT_URL = 'main'
+

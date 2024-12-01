@@ -5,9 +5,11 @@ body {
     color: #FFFFFF;
 }
 
-a {
+/* a, .navbar button {
     color: #FFFFFF;
-}
+    text-decoration: none;
+    font-family: inherit;
+} */
 
 .content {
     margin: 10px;
@@ -18,23 +20,31 @@ a {
     background-color: #6a9733;
 }
 
-.navbar a {
+.navbar img {
+    float: left;
+    margin-left: 10px;
+}
+
+.navbar a, .navbar button {
     background-color: #87d22f;
     float: right;
     color: #FFFFFF;
+    font-family: inherit;
     text-align: center;
     padding: 30px 40px;
     text-decoration: none;
     font-size: 24px;
+    border: none; 
+    cursor: pointer;
     transition: background-color .6s ease;
 }
 
-.navbar a:hover {
+.navbar a:hover, .navbar button:hover {
     background-color: #76b92a;
 }
 
 .navbar a.home {
-    padding: 25px 40px;
+    padding: 25px 8px;
     background-color: #6a9733;
     float: left;
     color: #FFFFFF;
