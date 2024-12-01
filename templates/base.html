@@ -5,17 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     {% block title %}
     {% endblock %}
 </head>
 <body>
     <div class="navbar">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" width="78" height="83">
         <a class="home" href="{% url 'main' %}">Collaborify</a>
-        <a href="{% url 'register' %}">Pеєстрація</a>
-        <a href="{% url 'login' %}">Логiн</a>
-        <a href="{% url 'news-list' %}">Новини</a>
         <a href="{% url 'student-list' %}">Школа</a>
         <a href="{% url 'post-list' %}">Форум</a>
+        <a href="{% url 'news-list' %}">Новини</a>
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Логiн</a>
+            <a href="{% url 'register' %}">Pеєстрація</a>
+        {% endif %}
     </div>
     <div class="content">
         {% block content %}
