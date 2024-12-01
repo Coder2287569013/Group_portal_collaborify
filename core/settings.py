@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'grade_system',
     'default_pages',
     'forum',
+    'portfolio',
 ]
 
 MIDDLEWARE = [

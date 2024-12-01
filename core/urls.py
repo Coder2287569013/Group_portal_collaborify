@@ -25,4 +25,5 @@ urlpatterns = [
     path('school/', include('grade_system.urls')),
     path('', include('default_pages.urls')),
     path('forum/', include('forum.urls')),
+    path('', include('portfolio.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
