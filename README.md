@@ -12,13 +12,13 @@
 
 ## Team Members
 
-- Vladimir
-- Stanislav 
-- Rostislav
-- Aleksey
-- Vladislav
-- Mikhail
-- Artem
+- Vladimir Yarovenko
+- Stanislav Shevchenko
+- Rostislav Kostash
+- Aleksey Kalion
+- Vladislav Zaharov
+- Mikhail Pankov
+- Artem Kucheryaviy
 
 ---
 
