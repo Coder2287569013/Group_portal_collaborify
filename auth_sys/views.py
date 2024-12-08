@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.models import Group
 from .models import CustomUser
 from .forms import CustomUserCreationForm
 
@@ -14,7 +15,10 @@ class RegisterView(CreateView): # - RegisterView for registering new users
     success_url = reverse_lazy('main')
 
     def form_valid(self, form):
-        user = form.save()
+        group, created = Group.objects.get_or_create(name="Student")
+        user = form.save(commit=False)
+        user.role = group
+        user.save()
         login(self.request, user)
 
         return redirect('main')

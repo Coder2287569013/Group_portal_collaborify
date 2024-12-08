@@ -4,24 +4,33 @@ from .managers import CustomUserManager
 
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-
-    # ROLE = [
-    #     ('Student', 'student'),
-    #     ('Moderator','moderator'),
-    #     ('Administrator','administrator')
-    # ]
+    MONTH_CHOICES = [
+        (1, 'January'),
+        (2, 'February'),
+        (3, 'March'),
+        (4, 'April'),
+        (5, 'May'),
+        (6, 'June'),
+        (7, 'July'),
+        (8, 'August'),
+        (9, 'September'),
+        (10, 'October'),
+        (11, 'November'),
+        (12, 'December'),
+    ]
 
     username = None
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
+    birth_day = models.PositiveIntegerField(null=True)
+    birth_month = models.PositiveIntegerField(choices=MONTH_CHOICES, null=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    # role = models.CharField(max_length=13, choices=ROLE, default='student')
     role = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
-        
+
     USERNAME_FIELD = "email"
 
     objects = CustomUserManager()
