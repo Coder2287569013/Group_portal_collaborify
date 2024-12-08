@@ -44,6 +44,7 @@ class PostDetailViews(DetailView):
 class PostListViews(ListView):
     model = Post
     context_object_name = 'posts'
+    paginate_by = 30
     
     def get_queryset(self):
         queryset = super().get_queryset()

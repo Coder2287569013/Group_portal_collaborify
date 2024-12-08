@@ -1,0 +1,56 @@
+.forum_b{
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+    border: 2px solid #007608;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.forum_b:hover {
+    background-color: #00763d;
+    color: white;
+    }
+
+.forum{
+    margin: 5px;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #717171;
+    border-radius: 6px;
+    width: 90%;
+    height: auto;
+}
+
+.forum a{
+    background-color: aqua;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 2px 2px 2px 2px;
+    margin-right: 20px;
+    color: #000000;
+}
+
+.forum a:hover{
+    background-color: rgb(1, 187, 187);
+    color: #1f1f1f;
+}
+
+
+.pagination a {
+    position: relative;
+    top:20px;
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid gray ;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
