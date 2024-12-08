@@ -7,10 +7,28 @@ from django.contrib.auth.mixins import (
 )
 from default_pages.forms import NewsForm
 from default_pages.models import News
+from datetime import datetime, timedelta
+from .models import CustomUser
 
 # Create your views here.
 class MainView(TemplateView):
     template_name = 'default_pages/main.html'
+
+    def get_context_data(self, **kwargs):
+        today = datetime.now()
+        thirty_days = today + timedelta(days=30)
+
+        upcoming_birthdays = []
+        for user in CustomUser.objects.all():
+            if user.birth_month is not None and user.birth_day is not None:
+                birthday = datetime(today.year, user.birth_month, user.birth_day)
+                if today <= birthday <= thirty_days:
+                    upcoming_birthdays.append(user)
+
+        context = super().get_context_data(**kwargs)
+        context['upcoming_birthdays'] = upcoming_birthdays
+
+        return context
 
 class NewsListView(ListView):
     model = News
