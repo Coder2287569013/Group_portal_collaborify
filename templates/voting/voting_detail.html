@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ voting.title }}</h2>
+    <p>{{ voting.description }}</p>
+
+    {% if user_vote %}
+        <div class="alert alert-info">
+            Вы уже проголосовали за: {{ user_vote.choice.text }}
+        </div>
+        <h3>Результаты:</h3>
+        <ul class="list-group">
+            {% for choice in voting.choices.all %}
+                <li class="list-group-item">
+                    {{ choice.text }} - {{ choice.votes.count }} голосов
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {% for choice in voting.choices.all %}
+                <div class="form-check mb-2">
+                    <input type="radio" name="choice" value="{{ choice.id }}" 
+                           class="form-check-input" id="choice{{ choice.id }}" required>
+                    <label class="form-check-label" for="choice{{ choice.id }}">
+                        {{ choice.text }}
+                    </label>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Проголосовать</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
