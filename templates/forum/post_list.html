@@ -28,10 +28,18 @@
     </div>  
         {% endfor %}
         <div class="pagination">
-            <!-- <a href="?page={{ paginator.next }}">&laquo;</a> -->
-            {% for page_num in paginator.page_range %}
-            <a href="?page={{ page_num }}">{{ page_num }}</a>
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
             {% endfor %}
-            <!-- <a href="?page={{ paginator.}}">&raquo;</a> -->
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            {% endif %}
         </div>
 {% endblock %}

@@ -20,7 +20,7 @@ class PhotoCreatViews(LoginRequiredMixin,CreateView):
 class PhotoListViews(ListView):
     model = Photo
     context_object_name = 'photos'
-    paginate_by = 20
+    paginate_by = 24
 
 
 class PhotoDeleteViews(UserIsOwnerMixin,LoginRequiredMixin, DeleteView):
