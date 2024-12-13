@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'default_pages',
     'forum',
     'portfolio',
+    'gallery',
     'voting',
 ]
 
