@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Голосования</h2>
+    <a href="{% url 'voting:create' %}" class="btn btn-primary mb-3">Создать голосование</a>
+    
+    <div class="row">
+        {% for voting in votings %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ voting.title }}</h5>
+                        <p class="card-text">{{ voting.description|truncatewords:30 }}</p>
+                        <a href="{% url 'voting:detail' voting.pk %}" class="btn btn-primary">
+                            Участвовать
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Нет активных голосований</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 
