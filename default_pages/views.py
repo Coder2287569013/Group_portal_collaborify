@@ -57,6 +57,9 @@ class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
+def useful_links(request):
+    return render(request, 'default_pages/useful_links.html',)
+    
 # def add_news(request):
 #     if request.method == 'POST':
 #         form = NewsForm(request.POST)

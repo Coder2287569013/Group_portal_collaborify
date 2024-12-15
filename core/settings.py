@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'forum',
     'portfolio',
     'voting',
-    'usefulinks',
 ]
 
 MIDDLEWARE = [

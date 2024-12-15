@@ -10,7 +10,6 @@
     <h1>Hello, World!</h1>
     <a href="...">Просмотреть все доступні Urls</a>
     <br>
-    <a href="{% url 'useful_links' %}">Useful Links</a>
     <div class="upcoming">
         {% for user in upcoming_birthdays %}
             {{ user.get_birth_month_display }} {{ user.birth_day }} - {{ user.first_name }} {{ user.last_name }}

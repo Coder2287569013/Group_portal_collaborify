@@ -28,5 +28,4 @@ urlpatterns = [
     path('forum/', include('forum.urls')),
     path('portfolio/', include('portfolio.urls')),
     path('voting/', include('voting.urls')),
-    path('usefulinks/', include('usefulinks.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
