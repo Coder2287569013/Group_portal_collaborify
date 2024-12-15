@@ -36,7 +36,7 @@ class StudentDetailView(DetailView):
             grade.teacher = Teacher.objects.get(user = request.user)  # Прив'язуємо вчителя
             grade.student = Student.objects.get(user = student)  # Прив'язуємо студента
             grade.save()
-            return redirect('student-detail', pk=student.pk)
+            return redirect('student-detail', pk=student.id)
 
         return render(request, self.template_name, {
             'student': student,

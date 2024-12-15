@@ -3,11 +3,11 @@ from auth_sys.models import CustomUser
 
 
 class Teacher(models.Model):
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         CustomUser, 
         on_delete=models.CASCADE,
         related_name='teacher_profile',  
-        limit_choices_to={'role': 'teacher'}  
+        limit_choices_to={'role__name': 'Administrator'}  
     )
 
     def __str__(self):
@@ -15,11 +15,11 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
         related_name='student_profile',
-        limit_choices_to={'role': 'student'}
+        limit_choices_to={'role__name': 'Student'}
     )
 
     def __str__(self):

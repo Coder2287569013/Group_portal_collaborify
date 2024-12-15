@@ -28,7 +28,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
     role = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
 
     USERNAME_FIELD = "email"
