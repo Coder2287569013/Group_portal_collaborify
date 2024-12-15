@@ -15,18 +15,27 @@ class MainView(TemplateView):
     template_name = 'default_pages/main.html'
 
     def get_context_data(self, **kwargs):
-        today = datetime.now()
+        today = datetime.now().date()
         thirty_days = today + timedelta(days=30)
-
+        print(thirty_days)
         upcoming_birthdays = []
         for user in CustomUser.objects.all():
             if user.birth_month is not None and user.birth_day is not None:
-                birthday = datetime(today.year, user.birth_month, user.birth_day)
+                try:
+                    birthday = datetime(today.year, user.birth_month, user.birth_day).date()
+                except ValueError:
+                    continue
+
+                if today > birthday:
+                    birthday = datetime(today.year + 1, user.birth_month, user.birth_day).date()
+
                 if today <= birthday <= thirty_days:
+                    print(thirty_days - birthday)
                     upcoming_birthdays.append(user)
 
         context = super().get_context_data(**kwargs)
         context['upcoming_birthdays'] = upcoming_birthdays
+        print(upcoming_birthdays)
 
         return context
 
@@ -66,3 +75,6 @@ class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 #     else:
 #         form = NewsForm()
 #     return render(request, 'default_pages/add_news.html', {'form': form})
+
+def useful_links(request):
+    return render(request, 'default_pages/useful_links.html',)
