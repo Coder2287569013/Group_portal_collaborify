@@ -1,4 +1,5 @@
 .upcoming {
+    margin-right: 10px;
     width: 300px;
     height: auto;
     float: right;
@@ -6,4 +7,13 @@
     background-color: #141a1a;
     border-radius: 14px;
     font-size: 20px;
+}
+
+@media (max-width: 800px) {
+    .upcoming {
+        float: none; 
+        width: 85%;
+        margin: 0 auto 20px; 
+        top: 0;
+    }
 }
