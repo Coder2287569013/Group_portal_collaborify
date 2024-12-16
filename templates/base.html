@@ -5,14 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/navbar.js' %}"></script>
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     {% block title %}
     {% endblock %}
 </head>
 <body>
     <div class="navbar">
-        <img src="{% static 'img/logo.png' %}" alt="Logo" width="78" height="83">
-        <a class="home" href="{% url 'main' %}">Collaborify</a>
+        <div class="logo-section">
+            <img src="{% static 'img/logo.png' %}" alt="Logo" width="78" height="83">
+            <a class="home" href="{% url 'main' %}">Collaborify</a>
+        </div>
+        <button class="burger" onclick="toggleMenu()">☰</button>
+    </div>
+    
+    <div class="offcanvas-menu" id="offcanvasMenu" onclick="navbarDisable()">
         <a href="{% url 'useful-links' %}">Корисні Посилання</a>
         <a href="{% url 'student-list' %}">Школа</a>
         <a href="{% url 'post-list' %}">Форум</a>

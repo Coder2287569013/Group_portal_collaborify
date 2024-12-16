@@ -5,48 +5,80 @@ body {
     color: #FFFFFF;
 }
 
-/* a, .navbar button {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-family: inherit;
-} */
-
-.content {
-    margin: 10px;
+.navbar {
+    background-color: #6a9733;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 0 20px;
 }
 
-.navbar {
-    overflow: hidden;
-    background-color: #6a9733;
+.navbar .logo-section {
+    display: flex;
+    align-items: center;
 }
 
 .navbar img {
-    float: left;
-    margin-left: 10px;
+    height: 80px; 
+    width: auto;  
+    margin-right: 10px; 
 }
 
-.navbar a, .navbar button {
-    background-color: #87d22f;
-    float: right;
+.navbar .home {
+    font-size: 32px;
     color: #FFFFFF;
-    font-family: inherit;
-    text-align: center;
-    padding: 30px 40px;
     text-decoration: none;
-    font-size: 24px;
-    border: none; 
-    cursor: pointer;
-    transition: background-color .6s ease;
 }
 
-.navbar a:hover, .navbar button:hover {
+.burger {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.offcanvas-menu {
+    position: fixed;
+    top: 0;
+    right: -250px; 
+    width: 250px;
+    height: 100%;
+    background-color: #87d22f;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.5s ease;
+}
+
+.offcanvas-menu a,
+.offcanvas-menu button {
+    color: #FFFFFF;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.offcanvas-menu a:hover,
+.offcanvas-menu button:hover {
     background-color: #76b92a;
 }
 
-.navbar a.home {
-    padding: 25px 8px;
-    background-color: #6a9733;
-    float: left;
-    color: #FFFFFF;
-    font-size: 32px;
+.offcanvas-menu.active {
+    right: 0;
+}
+
+@media screen and (max-height: 400px) {
+    .offcanvas-menu a,
+    .offcanvas-menu button {
+        padding: 11px 16px;
+        font-size: 13px;
+    }
 }
