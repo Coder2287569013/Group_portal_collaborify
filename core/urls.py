@@ -29,4 +29,5 @@ urlpatterns = [
     path('portfolio/', include('portfolio.urls')),
     path('gallery/', include('gallery.urls')),
     path('voting/', include('voting.urls')),
+    path('calendar/', include('timline_calendar.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

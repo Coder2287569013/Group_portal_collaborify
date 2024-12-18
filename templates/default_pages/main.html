@@ -1,20 +1,119 @@
-{% extends 'base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Calendar</title>
+    <style>
+        .timeline-container {
+            position: fixed;
+            bottom: -180px;
+            left: 0;
+            width: 100%;
+            background-color: #273232;
+            transition: bottom 0.4s ease;
+            z-index: 100;
+            height: 200px;
+        }
 
-{% block title %}
-    <title>Collaborify: Головна</title>
-{% endblock %}
+        .timeline-container:hover {
+            bottom: 0;
+        }
 
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/main_page.css' %}">
-    <h1>Hello, World!</h1>
-    <a href="...">Просмотреть все доступні Urls</a>
-    <div class="upcoming">
-        {% for user in upcoming_birthdays %}
-            {{ user.get_birth_month_display }} {{ user.birth_day }} - {{ user.first_name }} {{ user.last_name }}
-            <br>
-        {% empty %}
-            No upcoming birthdays in the next 30 days!
-        {% endfor %}
+        .timeline {
+            display: flex;
+            align-items: center;
+            height: calc(100% - 30px);
+            padding: 10px;
+            overflow-x: scroll;
+            white-space: nowrap;
+            scrollbar-width: 100px ;
+            scrollbar-color: #525656 #767B7B;
+            margin-bottom: 15px;
+        }
+
+        /* Стили для WebKit (Chrome, Safari, новые версии Edge) */
+        .timeline::-webkit-scrollbar {
+            height: 15px;
+            width: 15px;
+            display: block;
+        }
+
+        .timeline::-webkit-scrollbar-track {
+            background: #6A9733;
+            border-radius: 8px;
+        }
+
+        .timeline::-webkit-scrollbar-thumb {
+            background-color: #87D22F;
+            border-radius: 8px;
+            border: 3px solid #6A9733;
+        }
+
+        .timeline::-webkit-scrollbar-thumb:hover {
+            background-color: #6A9733;
+        }
+
+        .day-marker {
+            display: inline-block;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+            background-color: #6A9733;
+            border-radius: 5px;
+            min-width: 60px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .day-marker:hover {
+            transform: scale(1.1);
+            background-color: #87D22F;
+        }
+
+        .day-marker .date {
+        font-size: 18px;
+        font-weight: bold;
+        }
+
+        .day-marker .weekday,
+        .day-marker .month {
+        font-size: 14px;
+        color: #555;
+        }
+
+        .day-marker .events {
+            margin-right: 20px;
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        .day-marker .events li {
+            text-align: center;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <div class="timeline">
+            {% for item in timeline %}
+            <div class="day-marker">
+                <div class="date">{{ item.day }}</div>
+                <div class="weekday">{{ item.weekday }}</div>
+                <div class="month">{{ item.month }}</div>
+                <ul class="events">
+                    {% if item.events %}
+                        {% for event in item.events %}
+                        <li>{{ event.title }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Немає подій</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-{% endblock %}
+</body>
+</html>
