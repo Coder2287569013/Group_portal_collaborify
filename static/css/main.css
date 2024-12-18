@@ -66,6 +66,10 @@ body {
     transition: background-color 0.3s ease;
 }
 
+.offcanvas-menu button {
+    width: 100%;
+    display: block;
+}
 .offcanvas-menu a:hover,
 .offcanvas-menu button:hover {
     background-color: #76b92a;
