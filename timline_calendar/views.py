@@ -58,11 +58,21 @@ def timeline_calendar(request):
 
 def add_event(request):
     if request.method == "POST":
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('timeline-calendar')
-    else:
-        form = EventForm()
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        date = request.POST.get("date")
 
-    return render(request, "default_pages/add_event.html", {"form": form})
+        if not title or not date:
+            return render(
+                request,
+                "default_pages/add_event.html",
+                {"error": "Title and date are required fields."}
+            )
+
+        event = Event.objects.create(
+            title=title,
+            description=description,
+            date=date,
+        )
+
+    return render(request, "default_pages/add_event.html")

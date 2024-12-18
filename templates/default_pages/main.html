@@ -25,14 +25,15 @@
             align-items: center;
             height: calc(100% - 30px);
             padding: 10px;
-            overflow-x: scroll;
+            overflow-x: auto;
             white-space: nowrap;
             scrollbar-width: 100px ;
             scrollbar-color: #525656 #767B7B;
             margin-bottom: 15px;
+            border: 1px solid #ccc;
+            width: 100%;
         }
 
-        /* Стили для WebKit (Chrome, Safari, новые версии Edge) */
         .timeline::-webkit-scrollbar {
             height: 15px;
             width: 15px;
@@ -96,7 +97,7 @@
 </head>
 <body>
     <div class="timeline-container">
-        <div class="timeline">
+        <div class="timeline", id = "timeline">
             {% for item in timeline %}
             <div class="day-marker">
                 <div class="date">{{ item.day }}</div>
@@ -115,5 +116,14 @@
             {% endfor %}
         </div>
     </div>
+
+    <script>
+        window.onload = () => {
+            const timeline = document.getElementById("timeline");
+            const progress = 0.5;
+            const scrollPosition = progress * (timeline.scrollWidth - timeline.clientWidth);
+            timeline.scrollLeft = scrollPosition;
+        };
+    </script>
 </body>
 </html>
