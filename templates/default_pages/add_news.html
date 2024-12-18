@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Додати новость</h1>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
   <form method="post">
+    <h2>Додати новину</h2>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Зберегти</button>

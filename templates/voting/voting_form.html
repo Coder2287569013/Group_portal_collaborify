@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container mt-4">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
     <h2>Создать голосование</h2>
     <form method="post">
         {% csrf_token %}

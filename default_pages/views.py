@@ -32,9 +32,13 @@ class MainView(TemplateView):
                 if today <= birthday <= thirty_days:
                     print(thirty_days - birthday)
                     upcoming_birthdays.append(user)
+        
+
+        news = News.objects.all()[0:4]
 
         context = super().get_context_data(**kwargs)
         context['upcoming_birthdays'] = upcoming_birthdays
+        context['news'] = news
         print(upcoming_birthdays)
 
         return context
