@@ -29,4 +29,123 @@
             {% endfor %}
         </div>
     </div>
+    <style>
+        .timeline-container {
+            position: fixed;
+            bottom: -180px;
+            left: 0;
+            width: 100%;
+            background-color: #273232;
+            transition: bottom 0.4s ease;
+            z-index: 100;
+            height: 200px;
+        }
+    
+        .timeline-container:hover {
+            bottom: 0;
+        }
+    
+        .timeline {
+            display: flex;
+            align-items: center;
+            height: calc(100% - 30px);
+            padding: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: 100px ;
+            scrollbar-color: #525656 #767B7B;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+    
+        .timeline::-webkit-scrollbar {
+            height: 15px;
+            width: 15px;
+            display: block;
+        }
+    
+        .timeline::-webkit-scrollbar-track {
+            background: #6A9733;
+            border-radius: 8px;
+        }
+    
+        .timeline::-webkit-scrollbar-thumb {
+            background-color: #87D22F;
+            border-radius: 8px;
+            border: 3px solid #6A9733;
+        }
+    
+        .timeline::-webkit-scrollbar-thumb:hover {
+            background-color: #6A9733;
+        }
+    
+        .day-marker {
+            display: inline-block;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+            background-color: #6A9733;
+            border-radius: 5px;
+            min-width: 60px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+    
+        .day-marker:hover {
+            transform: scale(1.1);
+            background-color: #87D22F;
+        }
+    
+        .day-marker .date {
+        font-size: 18px;
+        font-weight: bold;
+        }
+    
+        .day-marker .weekday,
+        .day-marker .month {
+        font-size: 14px;
+        color: #555;
+        }
+    
+        .day-marker .events {
+            margin-right: 20px;
+            padding-left: 0;
+            list-style-type: none;
+        }
+    
+        .day-marker .events li {
+            text-align: center;
+            margin: 5px 0;
+        }
+    </style>
+    <div class="timeline-container">
+        <div class="timeline", id = "timeline">
+            {% for item in timeline %}
+            <div class="day-marker">
+                <div class="date">{{ item.day }}</div>
+                <div class="month">{{ item.month }}</div>
+                <div class="weekday">{{ item.weekday }}</div>
+                <ul class="events">
+                    {% if item.events %}
+                        {% for event in item.events %}
+                        <li>{{ event.title }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Немає подій</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script>
+        window.onload = () => {
+            const timeline = document.getElementById("timeline");
+            const progress = 0.5;
+            const scrollPosition = progress * (timeline.scrollWidth - timeline.clientWidth);
+            timeline.scrollLeft = scrollPosition;
+        };
+    </script>
 {% endblock %}

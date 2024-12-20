@@ -9,6 +9,26 @@ from default_pages.forms import NewsForm
 from default_pages.models import News
 from datetime import datetime, timedelta
 from .models import CustomUser
+from .models import Event
+from .forms import EventForm
+from datetime import datetime, timedelta
+
+def generate_timeline_with_events(start_date, end_date):
+    timeline = []
+    current_date = start_date
+    events = Event.objects.filter(date__range=[start_date, end_date])
+
+    while current_date <= end_date:
+        daily_events = events.filter(date=current_date)
+        timeline.append({
+            "day": current_date.strftime("%d"),
+            "month": current_date.strftime("%b"),
+            "weekday": current_date.strftime("%a"),
+            "events": daily_events,
+        })
+        current_date += timedelta(days=1)
+
+    return timeline
 
 # Create your views here.
 class MainView(TemplateView):
@@ -34,11 +54,20 @@ class MainView(TemplateView):
                     upcoming_birthdays.append(user)
         
 
-        news = News.objects.all()[0:4]
+        news = News.objects.all().order_by('-created_at')[0:3]
+
+
+        Event.objects.filter(date__lt= datetime.now() ).delete()
+
+        start_date = datetime.now() - timedelta(days=30)
+        end_date = datetime.now() + timedelta(days=30)
+
+        timeline = generate_timeline_with_events(start_date, end_date)
 
         context = super().get_context_data(**kwargs)
         context['upcoming_birthdays'] = upcoming_birthdays
         context['news'] = news
+        context['timeline'] = timeline
         print(upcoming_birthdays)
 
         return context
@@ -82,3 +111,24 @@ class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 def useful_links(request):
     return render(request, 'default_pages/useful_links.html',)
+
+def add_event(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        date = request.POST.get("date")
+
+        if not title or not date:
+            return render(
+                request,
+                "default_pages/add_event.html",
+                {"error": "Title and date are required fields."}
+            )
+
+        event = Event.objects.create(
+            title=title,
+            description=description,
+            date=date,
+        )
+
+    return render(request, "default_pages/add_event.html")

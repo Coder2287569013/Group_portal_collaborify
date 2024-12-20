@@ -6,13 +6,17 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Список новостей</h1>
-  <ul>
-    {% for item in news %}
-      <li>
-        <a href="{% url 'news-detail' pk=item.id %}">{{ item.title }}</a>
-        <p>Дата: {{ item.created_at|date:"d.m.Y" }}</p>
-      </li>
-    {% endfor %}
-  </ul>
+  <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+  <h1>Список новин</h1>
+  <div class="layout-container">
+    <div class="news-box1">
+        {% for article in news %}
+            <a class="news-item" href="{% url 'news-detail' pk=article.id %}">
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.content }}</p>
+                <p>{{ article.created_at }}, by {{ article.author }}</p>
+            </a>
+        {% endfor %}
+    </div>
+  </div>
 {% endblock %}
