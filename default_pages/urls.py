@@ -7,4 +7,5 @@ urlpatterns = [
     path('news-detail/<int:pk>/', views.NewsDetailView.as_view(), name='news-detail'),
     path('add-news/', views.NewsCreateView.as_view(), name='add-news'),
     path('useful-links/', views.useful_links, name='useful-links'),
+    path('add_event/', views.add_event, name='add-event'),
 ] 

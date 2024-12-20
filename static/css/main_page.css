@@ -22,13 +22,16 @@
     align-items: stretch;
 }
 
-.news-box {
+.news-box, .news-box1 {
     width: 60%;
     margin: 10px 10px;
     background-color: #1d2525;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.news-box1 {
+    width: 100%;
 }
 h1 {
     margin: 10px;

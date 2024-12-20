@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
 <div class="container mt-4">
     <h2>{{ voting.title }}</h2>
     <p>{{ voting.description }}</p>
