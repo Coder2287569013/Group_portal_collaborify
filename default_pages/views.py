@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from django.contrib.auth.mixins import (
@@ -6,12 +6,11 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from default_pages.forms import NewsForm
-from default_pages.models import News
 from datetime import datetime, timedelta
-from .models import CustomUser
-from .models import Event
+from .models import Event, CustomUser, News, Notification
 from .forms import EventForm
 from datetime import datetime, timedelta
+from django.utils.timezone import now
 
 def generate_timeline_with_events(start_date, end_date):
     timeline = []
@@ -37,7 +36,6 @@ class MainView(TemplateView):
     def get_context_data(self, **kwargs):
         today = datetime.now().date()
         thirty_days = today + timedelta(days=30)
-        print(thirty_days)
         upcoming_birthdays = []
         for user in CustomUser.objects.all():
             if user.birth_month is not None and user.birth_day is not None:
@@ -50,14 +48,21 @@ class MainView(TemplateView):
                     birthday = datetime(today.year + 1, user.birth_month, user.birth_day).date()
 
                 if today <= birthday <= thirty_days:
-                    print(thirty_days - birthday)
                     upcoming_birthdays.append(user)
         
 
         news = News.objects.all().order_by('-created_at')[0:3]
-
-
         Event.objects.filter(date__lt= datetime.now() ).delete()
+
+        yesterday = now() - timedelta(days=1)
+        print(yesterday)
+        notif = Notification.objects.all()
+        chek = Notification.objects.filter(created_at__lte=yesterday)
+        if chek.exists():
+            chek.delete()
+            print("Notification deleted")
+        else:
+            print("No notifications to delete")
 
         start_date = datetime.now() - timedelta(days=30)
         end_date = datetime.now() + timedelta(days=30)
@@ -68,8 +73,8 @@ class MainView(TemplateView):
         context['upcoming_birthdays'] = upcoming_birthdays
         context['news'] = news
         context['timeline'] = timeline
-        print(upcoming_birthdays)
-
+        if notif.exists():
+            context['notification'] = notif[0]
         return context
 
 class NewsListView(ListView):
@@ -99,16 +104,6 @@ class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
-# def add_news(request):
-#     if request.method == 'POST':
-#         form = NewsForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('news-list')
-#     else:
-#         form = NewsForm()
-#     return render(request, 'default_pages/add_news.html', {'form': form})
-
 def useful_links(request):
     return render(request, 'default_pages/useful_links.html',)
 

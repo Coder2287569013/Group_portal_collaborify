@@ -1,0 +1,24 @@
+.images{
+    margin: 15px;
+    width: 900px;
+    height: auto;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+.gallery_b {
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+    border: 2px solid #007608;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+  }
+
+  .gallery_b:hover {
+    background-color: #00763d;
+    color: white;
+    }

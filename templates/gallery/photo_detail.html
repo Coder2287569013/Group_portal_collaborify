@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Collaborify: Новини</title>
+{% endblock %}
+
+{% load custom_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/gallery_detail.css' %}">
+<a class="gallery_b" href="{% url 'gallery-list' %}">Назад</a>
+
+<div class="images">
+    {% if photo.image %}
+    {% if photo.image.url|endswith:".jpg" or photo.image.url|endswith:".png" or photo.image.url|endswith:".jpeg" %}
+    <img class="images" src="{{ photo.image.url }}" alt="img">
+    {% elif photo.image.url|endswith:".mp4" %}
+    <video class="images" controls>
+        <source src="{{ photo.image.url }}" type="video/mp4" >
+    </video>
+    {% else %}
+    <a href="{{ photo.image.url }}">Завантажити</a>
+    {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
