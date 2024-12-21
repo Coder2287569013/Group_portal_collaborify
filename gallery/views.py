@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Photo
-from django.views.generic import CreateView, ListView, DeleteView, UpdateView
+from django.views.generic import CreateView, ListView, DeleteView, DetailView
 from .forms import PhotoForms
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,3 +27,7 @@ class PhotoDeleteViews(UserIsOwnerMixin,LoginRequiredMixin, DeleteView):
     model = Photo
     success_url = reverse_lazy('gallery-list')
     
+
+class PhotoDetailViews(DetailView):
+    model = Photo
+    context_object_name = 'photo'

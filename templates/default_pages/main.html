@@ -7,6 +7,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/modal.css' %}">
     <h1>Новини</h1>
     <div class="layout-container">
         <div class="news-box">
@@ -18,7 +19,6 @@
                 </a>
             {% endfor %}
         </div>
-        <!-- <a href="...">Просмотреть все доступні Urls</a> -->
         <div class="upcoming">
             <h3>Найближчі дні народження:</h3>
             {% for user in upcoming_birthdays %}
@@ -58,4 +58,32 @@
             timeline.scrollLeft = scrollPosition;
         };
     </script>
+
+{% if notification %}
+    <dialog id="modal" style="padding: 0">
+        <div id="modal-box" style="padding: 1rem">
+            <button id="close-modal-btn">&#x2717;</button>
+            <div>
+                <p>{{ notification.title }}</p> 
+                <p>{{ notification.message }}</p>
+            </div>
+        </div>
+    </dialog>
+{% else %}
+<p>has no notifications</p>
+{% endif %}
+
+<script>// устанавливаем триггер для модального окна (название можно изменить)
+document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        // Show the modal when the site is loaded
+        modal.showModal();
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.close();
+        });
+    });
+</script>
 {% endblock %}

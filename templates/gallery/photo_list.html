@@ -31,21 +31,25 @@
         </div>
     </div>
         {% for photo in photos %}
-            <div class="gallery">
-                {% if photo.image %}
-                {% if photo.image.url|endswith:".jpg" or photo.image.url|endswith:".png" or photo.image.url|endswith:".jpeg" %}
-                <img class="im image-block" src="{{ photo.image.url }}" alt="img">
-                {% elif photo.image.url|endswith:".mp4" %}
-                <video controls>
-                    <source src="{{ photo.image.url }}" type="video/mp4" >
-                </video>
-                {% else %}
-                <a href="{{ photo.image.url }}">Завантажити</a>
-                {% endif %}
-                {% endif %}
+        <a href="{% url 'gallery-detail' photo.id %}">
+            <span>
+                <div class="gallery">
+                    {% if photo.image %}
+                    {% if photo.image.url|endswith:".jpg" or photo.image.url|endswith:".png" or photo.image.url|endswith:".jpeg" %}
+                    <img class="im image-block"  src="{{ photo.image.url }}" alt="img">
+                    {% elif photo.image.url|endswith:".mp4" %}
+                    <video style="width: 200px; height: 200px;" controls>
+                        <source src="{{ photo.image.url }}" type="video/mp4" >
+                    </video>
+                    {% else %}
+                    <a href="{{ photo.image.url }}">Завантажити</a>
+                    {% endif %}
+                    {% endif %}
+                </span>
                 <a href="{% url 'gallary-delete' photo.id %}" class="gallery_b2" style="float: right;">Видалення</a>
                 <a style="float: left;">{{ photo.creater }}</a>
             </div>
+        </a>
         {% empty %}
         <div class="gallery">No photo found</div>
         {% endfor %}

@@ -33,3 +33,17 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.date})"
+
+class Notification(models.Model):
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    creater = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="created_notifications"
+    )
+
+
+    def __str__(self):
+        return self.title
