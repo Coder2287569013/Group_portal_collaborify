@@ -1,0 +1,53 @@
+ul {
+    padding: 15px;
+    list-style-type: none;
+}
+
+li {
+    font-size: 20px;
+    padding: 5px 0;
+}
+h1 {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+    padding: 15px;
+}
+p {
+    padding: 15px;
+    font-size: 16px;
+}
+
+.collapsible-container {
+    margin-bottom: 5px;
+}
+
+.collapsible {
+    cursor: pointer;
+    padding: 15px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+    background-color: #1d2525;
+    margin: 0;
+    transition: background-color 0.3s;
+}
+
+.collapsible:hover {
+    background-color: #e0e0e0;
+}
+
+.content-text {
+    padding: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.content-text.active {
+    max-height: 500px;
+}

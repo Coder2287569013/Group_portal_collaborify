@@ -2,6 +2,14 @@ from django.db import models
 from auth_sys.models import CustomUser
 from django.urls import reverse
 
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        permissions = [('category_create', 'Can create category')]
 
 class Post(models.Model):
 
@@ -24,6 +32,7 @@ class Post(models.Model):
     priority = models.CharField(max_length=20, choices=FORUM_TYPE, default='open')
     created_at = models.DateTimeField(auto_now_add=True)
     creater = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, related_name='posts')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category")
     
 
     def __str__(self):

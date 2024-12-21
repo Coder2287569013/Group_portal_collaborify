@@ -40,25 +40,7 @@
         </button> 
     </form>
 
-    {% if request.user.is_staff%}
-    <form method="post" action="{% url 'post-close' post.id %}">
-        {% csrf_token %}
-        <button type="submit">
-            Close
-        </button>
-    </form>
-    
-    <form method="post" action="{% url 'post-open' post.id %}">
-        {% csrf_token %}
-        <button type="submit">
-            Open
-        </button>
-    </form>
-    {% endif %}
-
-
-
-    <a href="{% url 'post-list' %}">List</a><br>
+    <a href="{% url 'post-list' post.category_id %}">List</a><br>
     <a href="{% url 'post-delite' post.id %}">Delete</a><br>
     <a href="{% url 'post-update' post.id %}">Update</a>
 </div>

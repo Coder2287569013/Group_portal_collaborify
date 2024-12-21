@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Collaborify: Категорії постів</title>
+{% endblock %}
+
+{% block content %}
+    {% for category in categories %}
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'post-list' category.pk %}">
+            {{ category.name }}
+        </a>
+    {% empty %}
+        <p>No categories found</p>
+    {% endfor %}
+{% endblock %}

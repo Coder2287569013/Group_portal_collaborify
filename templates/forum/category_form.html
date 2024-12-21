@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Collaborify: Створення категорії</title>
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <div class="centery test">
+        <form method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
+            {{ form.as_p}}
+            <button type="submit">Submit</button>  
+        </form>
+    </div>
+{% endblock %}
