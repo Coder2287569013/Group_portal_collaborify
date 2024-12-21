@@ -11,7 +11,7 @@ ChoiceFormSet = inlineformset_factory(
     Voting, 
     Choice,
     fields=['text'],
-    extra=2,
-    min_num=2,
+    extra=4,
+    min_num=4,
     validate_min=True
 ) 

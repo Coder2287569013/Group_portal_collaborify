@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Collaborify: О нас</title>
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <h1>Познайомтесь з командою Collaborify!</h1>
+
+<div class="collapsible-container">
+<h2 class="collapsible">Хто ми?</h2>
+<div class="content-text">
+<p>Ми - команда <i>Collaborify</i>, яка займається розробкою веб-додатків. Наш проект - це портфоліо команди, де ми будемо ділитися новинами та подіями.</p>
+</div>
+</div>
+
+<div class="collapsible-container">
+<h2 class="collapsible">Чим ми займаємося?</h2>
+<div class="content-text">
+<p>Окрім новин та подій, наш веб-додаток включає безліч функцій, які ми розробили спеціально для ваших потреб.</p>
+</div>
+</div>
+
+<div class="collapsible-container">
+<h2 class="collapsible">Наша команда:</h2>
+<div class="content-text">
+    <div style="display: flex; justify-content: space-between; padding: 10px;">
+        <ul style="width: 33.3%;">
+            <li>Яровенко Володимир</li>
+            <li>Каліон Олексій</li>
+        </ul>
+        <ul style="width: 33.3%;">
+            <li>Шевченко Станіслав</li>
+            <li>Захаров Владислав</li>
+            <li>Панков Михайло</li>
+        </ul>
+        <ul style="width: 33.3%;">
+            <li>Косташ Ростислав</li>
+            <li>Кучерявий Артем</li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div class="collapsible-container">
+<h2 class="collapsible">Хочете дізнатися більше?</h2>
+<div class="content-text">
+<p>Слідкуйте за нашими новинами та подіями на цьому портфоліо!</p>
+</div>
+</div>
+
+<style>
+    .collapsible-container {
+        margin-bottom: 5px;
+    }
+  
+    .collapsible {
+        cursor: pointer;
+        padding: 15px;
+        font-family: 'Arial', sans-serif;
+        font-weight: 400;
+        background-color: #1d2525;
+        margin: 0;
+        transition: background-color 0.3s;
+    }
+  
+    .collapsible:hover {
+        background-color: #101414;
+    }
+  
+    .content-text {
+        padding: 15px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+  
+    .content-text.active {
+        max-height: 500px;
+    }
+  </style>
+  
+  <script>
+    document.querySelectorAll('.collapsible').forEach(item => {
+        item.addEventListener('click', () => {
+            const content = item.nextElementSibling;
+            content.classList.toggle('active');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+  </script>
+{% endblock %}
