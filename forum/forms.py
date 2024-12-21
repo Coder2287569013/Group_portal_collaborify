@@ -1,15 +1,19 @@
-from .models import Post , Comment
+from .models import Post , Comment, Category
 from django import forms
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'description', 'type', 'media']
+        fields = ['title', 'description', 'type', 'media', 'category']
         widgets = {
             "media":forms.FileInput()
         }
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name',]
 
 class PostFilterForm(forms.Form):
     

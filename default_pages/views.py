@@ -56,11 +56,10 @@ class MainView(TemplateView):
 
         news = News.objects.all().order_by('-created_at')[0:3]
 
-
-        Event.objects.filter(date__lt= datetime.now() ).delete()
-
         start_date = datetime.now() - timedelta(days=30)
         end_date = datetime.now() + timedelta(days=30)
+
+        Event.objects.filter(date__lt=start_date-timedelta(days=1)).delete()
 
         timeline = generate_timeline_with_events(start_date, end_date)
 
@@ -98,6 +97,9 @@ class NewsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class AboutView(TemplateView):
+    template_name = "default_pages/about_page.html"
     
 # def add_news(request):
 #     if request.method == 'POST':
